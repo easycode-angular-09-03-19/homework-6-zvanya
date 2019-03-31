@@ -1,0 +1,111 @@
+<div class="fixed-top" style="left: 5px; top: 65px;">
+  <button class="btn btn-dark" (click)="goBack()">< Back</button>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col col-8 mx-auto">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Информация о пользователе</h5>
+  
+          <form #editUserInfo="ngForm" class="mt-2">
+<!--            <div class="alert alert-danger" *ngIf="userName.invalid && userName.dirty">User name incorrect</div>-->
+            
+            <input type="text"
+                   class="form-control mb-1"
+                   [class.is-invalid]="userName.invalid && userName.dirty"
+                   [ngModel]="user?.name"
+                   (ngModelChange)="user.name = $event"
+                   name="name"
+                   placeholder="User name"
+                   #userName="ngModel"
+                   required
+                   maxlength="50"
+                   minlength="2"
+                   [readOnly]="!editMode"
+            >
+            
+            <div class="input-group mb-1">
+              <div class="input-group-prepend">
+                <div class="input-group-text">@</div>
+              </div>
+              <input type="text"
+                     class="form-control" id="inlineFormInputGroup" placeholder="Username"
+                     [class.is-invalid]="userUsername.invalid && userUsername.dirty"
+                     [ngModel]="user?.username"
+                     (ngModelChange)="user.username = $event"
+                     name="username"
+                     #userUsername="ngModel"
+                     required
+                     maxlength="50"
+                     minlength="2"
+                     [readOnly]="!editMode"
+              >
+            </div>
+  
+            <input type="text"
+                   class="form-control mb-1"
+                   [class.is-invalid]="email.invalid && email.dirty"
+                   [ngModel]="user?.email"
+                   (ngModelChange)="user.email = $event"
+                   name="email"
+                   placeholder="Enter email"
+                   #email="ngModel"
+                   required
+                   maxlength="50"
+                   minlength="2"
+                   [readOnly]="!editMode"
+            >
+  
+            <input type="text"
+                   class="form-control mb-1"
+                   [class.is-invalid]="phone.invalid && phone.dirty"
+                   [ngModel]="user?.phone"
+                   (ngModelChange)="user.phone = $event"
+                   name="phone"
+                   placeholder="Phone"
+                   #phone="ngModel"
+                   required
+                   maxlength="50"
+                   minlength="2"
+                   [readOnly]="!editMode"
+            >
+  
+            <input type="text"
+                   class="form-control mb-1"
+                   [class.is-invalid]="website.invalid && website.dirty"
+                   [ngModel]="user?.website"
+                   (ngModelChange)="user.website = $event"
+                   name="website"
+                   placeholder="website"
+                   #website="ngModel"
+                   required
+                   maxlength="50"
+                   minlength="2"
+                   [readOnly]="!editMode"
+            >
+  
+            <button type="submit" class="btn btn-success mr-2 mt-3"
+                    *ngIf="editMode"
+                    [disabled]="userName.invalid || userUsername.invalid || email.invalid || phone.invalid || website.invalid"
+                    (click)="submitForm()"
+            >
+              Save
+            </button>
+            
+            <button class="btn btn-dark mt-3" *ngIf="!editMode; else ifEditMode" (click)="editUser()">Edit</button>
+            <ng-template #ifEditMode>
+              <button class="btn btn-secondary mt-3" (click)="cancelEditUser()">
+                Cancel
+              </button>
+            </ng-template>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast [style]="{marginTop: '80px'}" key="s" (onClose)="onCloseMsgSubmit()" position="top-right"></p-toast>
