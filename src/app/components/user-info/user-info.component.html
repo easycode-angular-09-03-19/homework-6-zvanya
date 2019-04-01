@@ -10,8 +10,6 @@
           <h5 class="card-title">Информация о пользователе</h5>
   
           <form #editUserInfo="ngForm" class="mt-2">
-<!--            <div class="alert alert-danger" *ngIf="userName.invalid && userName.dirty">User name incorrect</div>-->
-            
             <input type="text"
                    class="form-control mb-1"
                    [class.is-invalid]="userName.invalid && userName.dirty"
