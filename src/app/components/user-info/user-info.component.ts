@@ -29,7 +29,12 @@ export class UserInfoComponent implements OnInit {
       this.user = data;
       Object.assign(this.oldUser, this.user);
     }, (err) => {
-      console.log(err);
+      this.msgService.add({
+        severity:'error',
+        summary: `Ошибка`,
+        detail: err.message,
+        key: 'err'
+      });
     });
   }
   
@@ -44,10 +49,20 @@ export class UserInfoComponent implements OnInit {
   
   submitForm() {
     this.editMode = false;
-    this.userService.editUser(this.user).subscribe((user) => {
-      this.msgService.add({severity:'success', summary: 'Редактирование', detail:'Данные сохранены', key: 's'});
+    this.userService.editUser(this.user).subscribe((user: IUser) => {
+      this.msgService.add({
+          severity:'success',
+          summary: `Редактирование. id: ${user.id}`,
+          detail:'Данные сохранены',
+          key: 's'
+      });
     },(err) => {
-    
+      this.msgService.add({
+        severity:'error',
+        summary: `Ошибка`,
+        detail: err.message,
+        key: 'err'
+      });
     });
   }
   
